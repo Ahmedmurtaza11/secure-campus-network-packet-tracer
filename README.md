@@ -131,7 +131,7 @@ Tested from PC14 on the Guest LAN:
 ## Files
 
 - `network.pkt`: the Packet Tracer project
-- `configs/`: router and switch configs (enable secret removed)
+- `config/`: router and switch configs (enable secret removed)
 - `screenshots/`: topology, ACL test, port security and graphics
 
 ## What I would add next
