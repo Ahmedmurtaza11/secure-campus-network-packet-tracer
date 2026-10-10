@@ -1,0 +1,48 @@
+! Router6 (Cisco 2811 with NM-2FE2W)
+hostname Router
+!
+interface FastEthernet0/0
+ description Switch1 - VLAN 10 Admin
+ ip address 192.168.1.1 255.255.255.192
+ no shutdown
+!
+interface FastEthernet0/1
+ description Switch2 - VLAN 20 Students
+ ip address 192.168.1.65 255.255.255.192
+ no shutdown
+!
+interface FastEthernet1/0
+ description Switch4 - VLAN 40 Staff
+ ip address 192.168.1.129 255.255.255.192
+ no shutdown
+!
+interface FastEthernet1/1
+ description Switch3 - VLAN 30 Guest
+ ip address 192.168.1.193 255.255.255.192
+ ip access-group BLOCK_SW3 in
+ no shutdown
+!
+ip dhcp excluded-address 192.168.1.1 192.168.1.6
+ip dhcp excluded-address 192.168.1.65 192.168.1.70
+ip dhcp excluded-address 192.168.1.129 192.168.1.134
+ip dhcp excluded-address 192.168.1.193 192.168.1.198
+!
+ip dhcp pool LAN1
+ network 192.168.1.0 255.255.255.192
+ default-router 192.168.1.1
+ip dhcp pool LAN2
+ network 192.168.1.64 255.255.255.192
+ default-router 192.168.1.65
+ip dhcp pool LAN3
+ network 192.168.1.128 255.255.255.192
+ default-router 192.168.1.129
+ip dhcp pool LAN4
+ network 192.168.1.192 255.255.255.192
+ default-router 192.168.1.193
+!
+ip access-list extended BLOCK_SW3
+ deny ip 192.168.1.192 0.0.0.63 host 192.168.1.6
+ deny ip 192.168.1.192 0.0.0.63 host 192.168.1.70
+ permit ip any any
+!
+end
